@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>บทที่ 2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/unit2.css">
+</head>
+<body id="unit-2">
+
+    <nav class="navbar">
+        <span class="open-slide">
+          <a href="#" onclick="openSlideMenu()">
+            <svg width="30" height="30">
+                <path d="M0,5 30,5" stroke="#01166a" stroke-width="5"/>
+                <path d="M0,14 30,14" stroke="#01166a" stroke-width="5"/>
+                <path d="M0,23 30,23" stroke="#01166a" stroke-width="5"/>
+            </svg>
+          </a>
+        </span>
+    
+      </nav>
+    
+      <div id="side-menu" class="side-nav">
+        <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
+        <a href="index.html">Home</a>
+        <a>บทเรียน</a>
+        <a href="unit-1.html">บทที่1</a>
+        <a href="unit-2.html">บทที่2</a>
+        <a href="unit-3.html">บทที่3</a>
+        <a href="unit-4.html">บทที่4</a>
+        <a href="unit-5.html">บทที่5</a>
+        <a href="unit-6.html">บทที่6</a>
+        <a href="unit-7.html">บทที่7</a>
+        <a href="unit-8.html">บทที่8</a>
+        <a href="unit-9.html">บทที่9</a>
+        <a href="#">แบบทดสอบ</a>
+      </div>
+
+
+    <div class="lesson">
+        
+        <h1>บทที่ 2</h1>
+        <h1>โปรแกรมหรรษา</h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+       
+         <div class="video col-7 col-m-9 center">
+           <br>
+           <br>
+            <video width="100%" controls>
+                <source src="src/lesson-2/unit2.mp4" type="video/mp4">
+            </video>
+            <br>
+            <br>
+           
+           
+            <p class="text-2">ไปทดลองใช้โปรแกรม SCRATCH กันเลย</p >
+        
+              <a href="https://scratch.mit.edu/projects/editor/?tutorial=getStarted">
+              <img class="btn bottom-btn center" src="src/start2-btn.png">
+              </a>
+            </div>
+          
+            
+        <div class="  col-9 center">
+            <img class="tips center " src="src/lesson-2/trip2-2.png">
+        </div>
+        <div >
+            <br>
+          
+              <p class="text-2">ทดลองทำแบบฝึกหัด</p >
+              <img class="btn bottom-btn center" src="src/start2-btn.png">
+        </div>
+    </div>
+   
+
+    <script>
+        function openSlideMenu(){
+          document.getElementById('side-menu').style.width = '250px';
+          document.getElementById('main').style.marginLeft = '250px';
+        }
+    
+        function closeSlideMenu(){
+          document.getElementById('side-menu').style.width = '0';
+          document.getElementById('main').style.marginLeft = '0';
+        }
+      </script>
+      
+</body>
+</html>

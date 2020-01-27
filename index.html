@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>วิทยาการคำนวณ ป.4</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+     
+    <nav class="navbar">
+        <span class="open-slide">
+          <a href="#" onclick="openSlideMenu()">
+            <svg width="30" height="30">
+                <path d="M0,5 30,5" stroke="#01166a" stroke-width="5"/>
+                <path d="M0,14 30,14" stroke="#01166a" stroke-width="5"/>
+                <path d="M0,23 30,23" stroke="#01166a" stroke-width="5"/>
+            </svg>
+          </a>
+        </span>
+    
+      </nav>
+    
+      <div id="side-menu" class="side-nav">
+        <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
+        <a href="index.html">Home</a>
+        <a>บทเรียน</a>
+        <a href="unit-1.html">บทที่1</a>
+        <a href="unit-2.html">บทที่2</a>
+        <a href="unit-3.html">บทที่3</a>
+        <a href="unit-4.html">บทที่4</a>
+        <a href="unit-5.html">บทที่5</a>
+        <a href="unit-6.html">บทที่6</a>
+        <a href="unit-7.html">บทที่7</a>
+        <a href="unit-8.html">บทที่8</a>
+        <a href="unit-9.html">บทที่9</a>
+        <a href="#">แบบทดสอบ</a>
+        </div>
+        <div class="logo"> 
+            <img src="src/home/logoweb2.png">
+        </div> 
+    <div class="col-5 center">
+        <img class="name center" src="src/home/name.png">
+    </div>
+    <div>
+        <p class="text-1">แนะนำรายวิชา</p>
+    </div>
+    <div class="video col-7 col-m-9 center">
+        <video width="100%" controls>
+            <source src="src/home/แนะนำรายวิชา.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div>
+        <p class="text-2">เข้าสู่บทเรียน</p>
+    </div>
+    <div class="box-unit">
+        <a href="unit-1.html">
+            <img id="unit1" src="src/home/unit1.png">
+        </a>
+        <a href="unit-2.html">
+            <img id="unit2" src="src/home/unit2.png">
+        </a>
+        <a href="unit-3.html">
+            <img id="unit3" src="src/home/unit3.png">
+        </a>
+        <a href="unit-4.html">
+            <img id="unit4" src="src/home/unit4.png">
+        </a>
+        <a href="unit-5.html">
+            <img id="unit5" src="src/home/unit5.png">
+        </a>
+        <a href="unit-6.html">
+            <img id="unit6" src="src/home/unit6.png">
+        </a>
+        <a href="unit-7.html">
+            <img id="unit7" src="src/home/unit7.png">
+        </a>
+        <a href="unit-8.html">
+            <img id="unit8" src="src/home/unit8.png">
+        </a>
+        <a href="unit-9.html">
+            <img id="unit9" src="src/home/unit9.png">
+        </a>
+    </div>
+    <div>
+	<p class="text-3">แบบทดสอบหลังเรียน</p>
+	<img class="btn center" src="src/start2-btn.png">
+    </div>
+
+    <script>
+        function openSlideMenu(){
+          document.getElementById('side-menu').style.width = '250px';
+          document.getElementById('main').style.marginLeft = '250px';
+        }
+    
+        function closeSlideMenu(){
+          document.getElementById('side-menu').style.width = '0';
+          document.getElementById('main').style.marginLeft = '0';
+        }
+      </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>บทที่ 4</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/unit4.css">
+</head>
+<body id="unit-4">
+    <nav class="navbar">
+        <span class="open-slide">
+          <a href="#" onclick="openSlideMenu()">
+            <svg width="30" height="30">
+                <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
+                <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
+                <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
+            </svg>
+          </a>
+        </span>
+    
+      </nav>
+    
+      <div id="side-menu" class="side-nav">
+        <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
+        <a href="index.html">Home</a>
+        <a>บทเรียน</a>
+        <a href="unit-1.html">บทที่1</a>
+        <a href="unit-2.html">บทที่2</a>
+        <a href="unit-3.html">บทที่3</a>
+        <a href="unit-4.html">บทที่4</a>
+        <a href="unit-5.html">บทที่5</a>
+        <a href="unit-6.html">บทที่6</a>
+        <a href="unit-7.html">บทที่7</a>
+        <a href="unit-8.html">บทที่8</a>
+        <a href="unit-9.html">บทที่9</a>
+        <a href="#">แบบทดสอบ</a>
+      </div>
+
+    <div class="lesson">
+      <br>
+    
+        <h1>บทที่ 4</h1>
+        <h1>ในคลังสมบัติมีอะไรซ่อนอยู่</h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        
+       <div class="video col-7 col-m-9 center">
+            <video width="100%" controls>
+                <source src="src/lesson-4/unit4_1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <div >
+            <p class="text-1">ช่วยพี่กัปตันจดบันทึกสมบัติกันเลย</p>
+            <a href="src/lesson-4/practise_lesson_4/index.html">  
+             <img class="btn center" src="src/start-btn.png">
+            </a>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <div class="video col-7 col-m-9 center">
+            <video width="100%" controls>
+                <source src="src/lesson-4/unit4_2.mp4" type="video/mp4">
+            </video>
+            <br>
+        
+        <br>
+        </div>
+        <div class="  col-9 center">
+            <img class="tips center " src="src/lesson-4/trip4-8.png">
+        </div>
+        
+        
+        
+    </div>
+    
+    <script>
+        function openSlideMenu(){
+          document.getElementById('side-menu').style.width = '250px';
+          document.getElementById('main').style.marginLeft = '250px';
+        }
+    
+        function closeSlideMenu(){
+          document.getElementById('side-menu').style.width = '0';
+          document.getElementById('main').style.marginLeft = '0';
+        }
+      </script>
+</body>
+</html>
