@@ -80,5 +80,6 @@
 *.swf
 *.vob
 *.wmv
+*.mp3
 
 # End of https://www.gitignore.io/api/video,images
