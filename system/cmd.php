@@ -40,10 +40,10 @@ if ($cmd != "") {
 		$result = $mysql->login($username);
 
 		if(password_verify($password,$result['member_password'])){
-
-		    $_SESSION['getUsername']= $result['member_username'];
-			$_SESSION['getId']= $result['member_id'];
-			$_SESSION['getPassword']= $result['member_password'];
+			session_start();
+		    $_SESSION['getUsername'] = $result['member_username'];
+			$_SESSION['getId'] = $result['member_id'];
+			$_SESSION['getPassword'] = $result['member_password'];
 
 			// $timestamp = array(
 			// 				'h_user_id' => $result['h_user_id'],
@@ -59,5 +59,11 @@ if ($cmd != "") {
 		echo json_encode($check_login = array('check' => $check ));
 		$mysql->Close_db();
 	}
+
+	//logout
+	if ($cmd == "logout") {
+		session_destroy();
+	}
+
 }
 ?>

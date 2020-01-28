@@ -29,7 +29,7 @@ $( document ).ready(function() {
 
 //ส่งข้อมูล login
 	$("#sendLoginForm").submit(function(event){
-  		$('#loginSuccess').html('<div class="col-12" style="text-align: center; padding: 20px;"><h5>logging in</h5><h5><i class="fas fa-spinner fa-spin"></i></h5></div>');
+  		$('#login').html('<i class="fas fa-spinner fa-spin"></i>&nbsp;login');
     	event.preventDefault();
     	jQuery.ajax({
 	    	url: "../system/cmd.php",
@@ -46,14 +46,33 @@ $( document ).ready(function() {
 	      		if(data.check == 1){
 	        		document.location.href = 'dashboard.php';
 	      		}else{
+	      			$('#login').html('login');
 	        		$('#sendLoginForm').trigger("reset");
 	        		$('#loginSuccess').html('<span style="color:red;">บัญชีผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</span>');
 	      		}
 	      	},
 	      	error:function (){
+	      		$('#login').html('login');
 	      		$('#loginSuccess').html('<span style="text-align: center; color:red;"><i class="fas fa-times"></i>&nbsp;Cannot connect Database</span>');
 	      	}
       	});
+    });
+
+//logout
+	$("#logout").click(function(event){
+  		event.preventDefault();
+  		$("#logout").html('<i class="fas fa-spinner fa-spin"></i>&nbsp;logout');
+		jQuery.ajax({
+			url: "../system/cmd.php",
+			data:{
+				command: "logout"
+			},
+			type: "POST",
+			success:function(data){
+				document.location.href = 'login.php';
+			},
+			error:function (){ alert('oop');}
+		});
     });
 
 //end of ready    
