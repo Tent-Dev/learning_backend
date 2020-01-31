@@ -67,30 +67,7 @@ session_start();
 	<br>
 	<div class="container">
 		<div>
-			<div class="col-12 row">
-
-				<div class="col-4">
-					<div class="card shadow-sm">
-						<div class="card-header">
-							Lesson - 1 Introduction
-						</div>
-						<div class="card-body">
-							lorem is rum. It is very simply<br>
-							lorem is rum. It is very simply<br>
-							lorem is rum. It is very simply
-						</div>
-						<div class="card-footer">
-							<div class="col-12 row" align="center" style="margin: 0px;">
-								<div class="col-6" align="left">
-									<button class="btn btn-sm btn-outline-primary" type="button"><i class="fas fa-edit"></i>&nbsp;Edit</button>
-								</div>
-								<div class="col-6" align="right">
-									<button class="btn btn-sm btn-outline-danger" type="button"><i class="far fa-trash-alt"></i>&nbsp;Delete</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="col-12 row" id="query_lessonlist">
 				<div class="col-4">
 					<div class="card shadow-sm">
 						<div class="card-header blur">
@@ -122,8 +99,30 @@ session_start();
 			© Copyright 2020 learning.local
 		</div>
 	</footer>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" id="modal_edit_content">
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="update_btn">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 <!-- Add Script zone -->
 	<script src="../js/auth_login.js"></script>
+	<script src="../js/query.js"></script>
 <!-- end of Add Script zone -->
 </html>

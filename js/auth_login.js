@@ -6,7 +6,7 @@ $( document ).ready(function() {
 		    $.ajax({
 		     	url: "../system/cmd.php",
 		      	data:{
-		        command: "signup",
+		        	command: "signup",
 			        user: "admin",
 			        pass: "1234",
 			        Fname: "ABC",
@@ -31,7 +31,7 @@ $( document ).ready(function() {
 	$("#sendLoginForm").submit(function(event){
   		$('#login').html('<i class="fas fa-spinner fa-spin"></i>&nbsp;login');
     	event.preventDefault();
-    	jQuery.ajax({
+    	$.ajax({
 	    	url: "../system/cmd.php",
 	    	data:{
 	    		command: "login",

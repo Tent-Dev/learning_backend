@@ -65,5 +65,51 @@ if ($cmd != "") {
 		session_destroy();
 	}
 
+	//query_lessonlist
+	if ($cmd == "query_lessonlist") {
+		$sql = "SELECT * FROM tbl_lesson";
+		$result = $mysql->select_db($sql);
+
+		foreach ($result as $read) {
+			$arr[] = array(
+				'lesson_id' => $read['lesson_id'],
+				'lesson_name' => $read['lesson_name'],
+				'lesson_desc' => $read['lesson_desc'],
+				'lesson_intro_mp4' => $read['lesson_intro_mp4'],
+				'lesson_content_mp4' => $read['lesson_content_mp4']);
+		}
+		echo json_encode($arr);
+	}
+
+	//select_lesson
+	if ($cmd == "select_lesson") {
+		$id = $_POST['lesson_id'];
+		$sql = "SELECT * FROM tbl_lesson WHERE lesson_id = ".$id."";
+		$read = $mysql->Select_db_one($sql);
+
+		$arr = array(
+			'lesson_id' => $read['lesson_id'],
+			'lesson_name' => $read['lesson_name'],
+			'lesson_desc' => $read['lesson_desc'],
+			'lesson_intro_mp4' => $read['lesson_intro_mp4'],
+			'lesson_content_mp4' => $read['lesson_content_mp4']);
+		echo json_encode($arr);
+	}
+
+	//update_lesson
+	if ($cmd == "update_lesson") {
+		$arr = array( //field ต่างๆ
+				"lesson_id"=> $_POST['lesson_id'],
+				"lesson_name"=> $_POST['lesson_name_edit_field'],
+				"lesson_desc"=> $_POST['lesson_desc_edit_field'],
+				"lesson_intro_mp4"=> $_POST['lesson_videoIntro_edit_field'],
+				"lesson_content_mp4"=> $_POST['lesson_videoContent_edit_field']
+		);
+
+		$key = array("lesson_id");
+		$check = $mysql->Update_db($arr,$key,"tbl_lesson");
+		echo json_encode($check);
+	}
+
 }
 ?>
