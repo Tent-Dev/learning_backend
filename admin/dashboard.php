@@ -4,13 +4,14 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<title></title>
 	<!--include-->
 		<?php include("../include/lib.php") ?>
 	<!-- end of include -->
 	<style type="text/css" media="screen">
 		footer{
-			background-color: #6c757d;
+			background-color: #4E4D4D;
 		    padding-top: 10px !important;
 		    padding-bottom: 10px !important;
 		    position: absolute;
@@ -20,7 +21,7 @@ session_start();
 		    text-align: center;
 		}
 		.card-header {
-		    background-color: grey !important;
+		    background-color: #4E4D4D !important;
 		    border-bottom: 1px solid rgba(0,0,0,.125);
 		    color: white;
 		}
@@ -35,6 +36,22 @@ session_start();
 		.blur{
 			-webkit-filter: blur(2px); /* Chrome, Safari, Opera */
     		filter: blur(2px);
+		}
+		.card_space{
+			margin-bottom: 10px;
+		}
+		.modal-header{
+			background-color: #CACACA !important;
+			/*color: white !important;*/
+		}
+		.form-group .form-control{
+			margin-bottom: 10px;
+		}
+		.input-group-prepend{
+			margin-bottom: 10px;
+		}
+		.margin-10{
+			margin-bottom: 10px;
 		}
 	</style>
 </head>
@@ -68,26 +85,6 @@ session_start();
 	<div class="container">
 		<div>
 			<div class="col-12 row" id="query_lessonlist">
-				<div class="col-4">
-					<div class="card shadow-sm">
-						<div class="card-header blur">
-							Lesson - 1 Introduction
-						</div>
-						<div class="card-body" align="center">
-							<button class="btn btn-lg btn-outline-success" type="button"><i class="fas fa-plus-circle"></i>&nbsp;Add</button>
-						</div>
-						<div class="card-footer blur">
-							<div class="col-12 row" align="center" style="margin: 0px;">
-								<div class="col-6" align="left">
-									<button class="btn btn-sm btn-outline-primary" type="button" disabled><i class="fas fa-edit"></i>&nbsp;Edit</button>
-								</div>
-								<div class="col-6" align="right">
-									<button class="btn btn-sm btn-outline-danger" type="button" disabled><i class="far fa-trash-alt"></i>&nbsp;Delete</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div>
@@ -100,12 +97,12 @@ session_start();
 		</div>
 	</footer>
 
-	<!-- Modal -->
+	<!-- Modal edit -->
 	<div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle">แก้ไขเนื้อหาบทเรียน</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -114,8 +111,46 @@ session_start();
 	        
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="update_btn">Save changes</button>
+	      	<button type="button" class="btn btn-primary" id="update_btn">Save changes</button>
+	        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal add -->
+	<div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มบทเรียนใหม่</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" id="modal_add_content">
+	        
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary" id="send_add_btn">Add</button>
+	        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button> 
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal delete -->
+	<div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">ลบบทเรียน</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body" id="modal_delete_content">
+	        
 	      </div>
 	    </div>
 	  </div>

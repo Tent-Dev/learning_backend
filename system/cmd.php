@@ -76,7 +76,8 @@ if ($cmd != "") {
 				'lesson_name' => $read['lesson_name'],
 				'lesson_desc' => $read['lesson_desc'],
 				'lesson_intro_mp4' => $read['lesson_intro_mp4'],
-				'lesson_content_mp4' => $read['lesson_content_mp4']);
+				'lesson_content_mp4' => $read['lesson_content_mp4'],
+				'lesson_urlname' => $read['lesson_urlname']);
 		}
 		echo json_encode($arr);
 	}
@@ -92,23 +93,67 @@ if ($cmd != "") {
 			'lesson_name' => $read['lesson_name'],
 			'lesson_desc' => $read['lesson_desc'],
 			'lesson_intro_mp4' => $read['lesson_intro_mp4'],
-			'lesson_content_mp4' => $read['lesson_content_mp4']);
+			'lesson_content_mp4' => $read['lesson_content_mp4'],
+			'lesson_urlname' => $read['lesson_urlname']);
 		echo json_encode($arr);
 	}
 
 	//update_lesson
 	if ($cmd == "update_lesson") {
+
+		$sql_checkurl = "SELECT lesson_urlname FROM tbl_lesson WHERE lesson_urlname LIKE '".$_POST['lesson_urlname_edit_field']."'";
+		$result = $mysql->numRows($sql_checkurl);
+
 		$arr = array( //field ต่างๆ
 				"lesson_id"=> $_POST['lesson_id'],
 				"lesson_name"=> $_POST['lesson_name_edit_field'],
 				"lesson_desc"=> $_POST['lesson_desc_edit_field'],
 				"lesson_intro_mp4"=> $_POST['lesson_videoIntro_edit_field'],
-				"lesson_content_mp4"=> $_POST['lesson_videoContent_edit_field']
-		);
+				"lesson_content_mp4"=> $_POST['lesson_videoContent_edit_field'],
+				'lesson_urlname' => $_POST['lesson_urlname_edit_field']);
 
 		$key = array("lesson_id");
 		$check = $mysql->Update_db($arr,$key,"tbl_lesson");
+
+		if ($result == 0 && $_POST['lesson_urlname_edit_field'] !== "" && !file_exists("../".$_POST['lesson_urlname_edit_field'].".html")) {
+			$myfile = fopen("../".$_POST['lesson_urlname_edit_field'].".html", "w");
+		}
+
 		echo json_encode($check);
+	}
+
+	//add_lesson
+	if ($cmd == "add_lesson") {
+		$sql_checkurl = "SELECT lesson_urlname FROM tbl_lesson WHERE lesson_urlname LIKE '".$_POST['lesson_urlname']."'";
+		$result_check = $mysql->numRows($sql_checkurl);
+
+		$arr = array( 
+				"lesson_name"=> mysql_real_escape_string($_POST['lesson_name']),
+				"lesson_desc"=> mysql_real_escape_string($_POST['lesson_desc']),
+				"lesson_intro_mp4"=> $_POST['lesson_intro_mp4'],
+				"lesson_content_mp4"=> $_POST['lesson_content_mp4'],
+				'lesson_urlname' => $_POST['lesson_urlname']
+				);
+		$mysql->Insert_db($arr,"tbl_lesson");
+
+		if ($result_check == 0 && $_POST['lesson_urlname'] !== "" && !file_exists("../".$_POST['lesson_urlname'].".html")) {
+			$myfile = fopen("../".$_POST['lesson_urlname'].".html", "w");
+		}
+	}
+
+	//delete_lesson
+	if ($cmd == "delete_lesson") {
+		if($_POST['deleteall'] == 1){
+			$sql_checkurl = "SELECT lesson_urlname FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
+			$read = $mysql->Select_db_one($sql_checkurl);
+			if($read['lesson_urlname'] !== ""){
+				$myfile = unlink("../".$read['lesson_urlname'].".html");
+			}
+		}
+
+		$sql = "DELETE FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
+		$check = $mysql->Delete_db($sql);
+		$mysql->Close_db();
 	}
 
 }
