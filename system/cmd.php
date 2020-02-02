@@ -62,6 +62,7 @@ if ($cmd != "") {
 
 	//logout
 	if ($cmd == "logout") {
+		session_start() ;
 		session_destroy();
 	}
 
@@ -104,6 +105,10 @@ if ($cmd != "") {
 		$sql_checkurl = "SELECT lesson_urlname FROM tbl_lesson WHERE lesson_urlname LIKE '".$_POST['lesson_urlname_edit_field']."'";
 		$result = $mysql->numRows($sql_checkurl);
 
+		if($_POST['current_videoIntro'] !=="" && $_POST['lesson_videoIntro_edit_field'] !=="" && $_POST['current_videoIntro'] !== $_POST['lesson_videoIntro_edit_field']){
+			unlink($_POST['current_videoIntro']);
+		}
+
 		$arr = array( //field ต่างๆ
 				"lesson_id"=> $_POST['lesson_id'],
 				"lesson_name"=> $_POST['lesson_name_edit_field'],
@@ -116,7 +121,9 @@ if ($cmd != "") {
 		$check = $mysql->Update_db($arr,$key,"tbl_lesson");
 
 		if ($result == 0 && $_POST['lesson_urlname_edit_field'] !== "" && !file_exists("../".$_POST['lesson_urlname_edit_field'].".html")) {
-			$myfile = fopen("../".$_POST['lesson_urlname_edit_field'].".html", "w");
+			$template = file_get_contents("template.html");
+			$myfile = fopen("../".$_POST['lesson_urlname_edit_field'].".html", "w+");
+			fwrite($myfile,$template); fclose($myfile);
 		}
 
 		echo json_encode($check);
@@ -130,30 +137,78 @@ if ($cmd != "") {
 		$arr = array( 
 				"lesson_name"=> mysql_real_escape_string($_POST['lesson_name']),
 				"lesson_desc"=> mysql_real_escape_string($_POST['lesson_desc']),
-				"lesson_intro_mp4"=> $_POST['lesson_intro_mp4'],
-				"lesson_content_mp4"=> $_POST['lesson_content_mp4'],
+				"lesson_intro_mp4"=> $_POST['lesson_videoIntro'],
+				"lesson_content_mp4"=> $_POST['lesson_videoContent'],
 				'lesson_urlname' => $_POST['lesson_urlname']
 				);
 		$mysql->Insert_db($arr,"tbl_lesson");
 
 		if ($result_check == 0 && $_POST['lesson_urlname'] !== "" && !file_exists("../".$_POST['lesson_urlname'].".html")) {
-			$myfile = fopen("../".$_POST['lesson_urlname'].".html", "w");
+			$template = file_get_contents("template.html");
+			$myfile = fopen("../".$_POST['lesson_urlname'].".html", "w+");
+			fwrite($myfile,$template); fclose($myfile);
 		}
 	}
 
 	//delete_lesson
 	if ($cmd == "delete_lesson") {
 		if($_POST['deleteall'] == 1){
-			$sql_checkurl = "SELECT lesson_urlname FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
+			$sql_checkurl = "SELECT lesson_urlname, lesson_intro_mp4, lesson_content_mp4 FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
 			$read = $mysql->Select_db_one($sql_checkurl);
 			if($read['lesson_urlname'] !== ""){
-				$myfile = unlink("../".$read['lesson_urlname'].".html");
+				unlink("../".$read['lesson_urlname'].".html");
+				unlink($read['lesson_intro_mp4']);
+				unlink($read['lesson_content_mp4']);
 			}
 		}
 
 		$sql = "DELETE FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
 		$check = $mysql->Delete_db($sql);
 		$mysql->Close_db();
+	}
+
+	//upload Intro
+	if ($cmd == "upload_video"){
+		$targetDir = "../upload/video";
+		$targetDir_inside = "../upload/video";
+	    $tempFile = $_FILES['fileUpload']['tmp_name'];
+	    $Filename = uniqid()."-".$_FILES['fileUpload']['name'];
+	    $targetFile =  $targetDir_inside."/".$_POST['directory']."/".$Filename ;
+	    try {
+	    	move_uploaded_file($tempFile,$targetFile);
+	    	$result = array('status' => 'ok', 'File_direct' => $targetFile, 'tempFile' => $tempFile);
+	    } catch (Exception $e) {
+	    	$result = array('status' => 'error', 'File_direct' => $targetFile, 'tempFile' => $tempFile);
+	    }
+		echo json_encode($result);
+	}
+
+	//delete_currentIntroVideo
+	if ($cmd == "delete_currentIntroVideo") {
+		$sql = "SELECT lesson_intro_mp4 FROM tbl_lesson WHERE lesson_id = ".$_POST['lesson_id']."";
+		$read = $mysql->Select_db_one($sql);
+		unlink($read['lesson_intro_mp4']);
+
+		$arr = array( //field ต่างๆ
+				"lesson_id"=> $_POST['lesson_id'],
+				"lesson_intro_mp4"=> ""
+			);
+
+		$key = array("lesson_id");
+		$check = $mysql->Update_db($arr,$key,"tbl_lesson");
+	}
+
+	//delete_currentIntroVideo_add
+	if ($cmd == "delete_currentIntroVideo_add") {
+		unlink($_POST['url']);
+	}
+
+	//connectVideo
+	if ($cmd == "connectVideo") {
+		$sql = "SELECT lesson_intro_mp4 FROM tbl_lesson WHERE lesson_urlname LIKE '".$_POST['urlname']."'";
+		$read = $mysql->Select_db_one($sql);
+		$result = array("intro_mp4_url" => $read['lesson_intro_mp4']);
+		echo json_encode($result);
 	}
 
 }
