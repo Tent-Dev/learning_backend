@@ -66,6 +66,28 @@ if ($cmd != "") {
 		session_destroy();
 	}
 
+	//EditAccount
+	if ($cmd == "EditAccount") {
+		$sql_check = "SELECT member_password FROM tbl_member WHERE member_id = ".$_POST['member_id']."";
+		$read = $mysql->Select_db_one($sql_check);
+		$current_password = $read['member_password'];
+		$old_password = $_POST['old_password'];
+		$new_password = $_POST['new_password'];
+		$confirm_new_password = $_POST['confirm_new_password'];
+
+		if (password_verify($old_password, $current_password) && $new_password == $confirm_new_password) {
+		    $arr = array( //field ต่างๆ
+				"member_id" => $_POST['member_id'],
+				"member_password" => password_hash($new_password, PASSWORD_BCRYPT, array('cost'=>12))
+			);
+
+			$key = array("member_id");
+			$check = $mysql->Update_db($arr,$key,"tbl_lesson");
+		} else {
+		    echo 'Invalid password.';
+		}
+	}
+
 	//query_lessonlist
 	if ($cmd == "query_lessonlist") {
 		$sql = "SELECT * FROM tbl_lesson";
