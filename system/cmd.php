@@ -112,7 +112,7 @@ if ($cmd != "") {
 				'lesson_name' => $read['lesson_name'],
 				'lesson_desc' => $read['lesson_desc'],
 				'lesson_intro_mp4' => $read['lesson_intro_mp4'],
-				'lesson_content_mp4' => $read['lesson_content_mp4'],
+				//'lesson_content_mp4' => $read['lesson_content_mp4'],
 				'lesson_urlname' => $read['lesson_urlname']);
 		}
 		echo json_encode($arr);
@@ -129,7 +129,7 @@ if ($cmd != "") {
 			'lesson_name' => $read['lesson_name'],
 			'lesson_desc' => $read['lesson_desc'],
 			'lesson_intro_mp4' => $read['lesson_intro_mp4'],
-			'lesson_content_mp4' => $read['lesson_content_mp4'],
+			//'lesson_content_mp4' => $read['lesson_content_mp4'],
 			'lesson_urlname' => $read['lesson_urlname']);
 		echo json_encode($arr);
 	}
@@ -149,7 +149,7 @@ if ($cmd != "") {
 				"lesson_name"=> $_POST['lesson_name_edit_field'],
 				"lesson_desc"=> $_POST['lesson_desc_edit_field'],
 				"lesson_intro_mp4"=> $_POST['lesson_videoIntro_edit_field'],
-				"lesson_content_mp4"=> $_POST['lesson_videoContent_edit_field'],
+				//"lesson_content_mp4"=> $_POST['lesson_videoContent_edit_field'],
 				'lesson_urlname' => $_POST['lesson_urlname_edit_field']);
 
 		$key = array("lesson_id");
@@ -157,8 +157,13 @@ if ($cmd != "") {
 
 		if ($result == 0 && $_POST['lesson_urlname_edit_field'] !== "" && !file_exists("../".$_POST['lesson_urlname_edit_field'].".html")) {
 			$template = file_get_contents("template.html");
+			$template_css = file_get_contents("template_css.css");
 			$myfile = fopen("../".$_POST['lesson_urlname_edit_field'].".html", "w+");
 			fwrite($myfile,$template); fclose($myfile);
+			if(!file_exists("../css/".$_POST['lesson_urlname_edit_field'].".css")){
+				$mycss = fopen("../css/".$_POST['lesson_urlname_edit_field'].".css", "w+");
+				fwrite($mycss,$template_css); fclose($mycss);
+			}
 		}
 
 		echo json_encode($check);
@@ -173,27 +178,33 @@ if ($cmd != "") {
 				"lesson_name"=> mysql_real_escape_string($_POST['lesson_name']),
 				"lesson_desc"=> mysql_real_escape_string($_POST['lesson_desc']),
 				"lesson_intro_mp4"=> $_POST['lesson_videoIntro'],
-				"lesson_content_mp4"=> $_POST['lesson_videoContent'],
+				//"lesson_content_mp4"=> $_POST['lesson_videoContent'],
 				'lesson_urlname' => $_POST['lesson_urlname']
 				);
 		$mysql->Insert_db($arr,"tbl_lesson");
 
 		if ($result_check == 0 && $_POST['lesson_urlname'] !== "" && !file_exists("../".$_POST['lesson_urlname'].".html")) {
 			$template = file_get_contents("template.html");
+			$template_css = file_get_contents("template_css.css");
 			$myfile = fopen("../".$_POST['lesson_urlname'].".html", "w+");
 			fwrite($myfile,$template); fclose($myfile);
+			if(!file_exists("../css/".$_POST['lesson_urlname'].".css")){
+				$mycss = fopen("../css/".$_POST['lesson_urlname'].".css", "w+");
+				fwrite($mycss,$template_css); fclose($mycss);
+			}
 		}
 	}
 
 	//delete_lesson
 	if ($cmd == "delete_lesson") {
 		if($_POST['deleteall'] == 1){
-			$sql_checkurl = "SELECT lesson_urlname, lesson_intro_mp4, lesson_content_mp4 FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
+			$sql_checkurl = "SELECT lesson_urlname, lesson_intro_mp4 FROM tbl_lesson WHERE lesson_id = '".$_POST['lesson_id']."'";
 			$read = $mysql->Select_db_one($sql_checkurl);
 			if($read['lesson_urlname'] !== ""){
 				unlink("../".$read['lesson_urlname'].".html");
 				unlink($read['lesson_intro_mp4']);
-				unlink($read['lesson_content_mp4']);
+				//unlink($read['lesson_content_mp4']);
+				unlink("../css/".$read['lesson_urlname'].".css");
 			}
 		}
 

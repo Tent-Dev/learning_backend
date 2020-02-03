@@ -20,7 +20,7 @@ $( document ).ready(function() {
 				lesson_name: $('#lesson_name_add_field').val(),
 				lesson_desc: $('#lesson_desc_add_field').val(),
 				lesson_videoIntro: $('#fileUpload').attr('data-urlIntroVideo'),
-				lesson_videoContent: $('#lesson_videoContent_add_field').val(),
+				//lesson_videoContent: $('#lesson_videoContent_add_field').val(),
 				lesson_urlname: $('#lesson_urlname_add_field').val()
 			},
 		})
@@ -58,9 +58,9 @@ $( document ).ready(function() {
 		var edit_desc = $('#lesson_desc_edit_field').val();
 		var edit_videoIntro = $('#fileUpload').attr('data-urlIntroVideo');
 		var current_videoIntro = $('#fileUpload').attr('data-currentIntroVideo');
-		var edit_videoContent = $('#lesson_videoContent_edit_field').val();
+		//var edit_videoContent = $('#lesson_videoContent_edit_field').val();
 		var edit_urlname = $('#lesson_urlname_edit_field').val();
-		edit_lesson(id, edit_name, edit_desc, edit_videoIntro, edit_videoContent, edit_urlname, current_videoIntro);
+		edit_lesson(id, edit_name, edit_desc, edit_videoIntro, edit_urlname, current_videoIntro);
 	});
 
 	$(document).on('click', '.create_choice',function(event){
@@ -95,7 +95,7 @@ function query_lessonlist(){
 		type: "POST",
 		success:function(data){
 			data = JSON.parse(data);
-			json_html = '<div class="col-4 card_space">'+
+			json_html = '<div class="col-sm-12 col-md-6 col-lg-4 card_space">'+
 							'<div class="card shadow-sm">'+
 								'<div class="card-header blur">'+
 									'Lesson - 1 Introduction'+
@@ -118,7 +118,7 @@ function query_lessonlist(){
 			$(json_html).appendTo('#query_lessonlist');
 
 			$.each(data,function(index, el) {
-				let json_html = '<div class="col-4 card_space">'+
+				let json_html = '<div class="col-sm-12 col-md-6 col-lg-4 card_space">'+
 									'<div class="card shadow-sm">'+
 										'<div class="card-header"><span class="badge badge-info">'+'ID#'+el.lesson_id+'</span> '+el.lesson_name+'</div>'+
 										'<div class="card-body">'+
@@ -193,12 +193,12 @@ function show_add_modal(){
 									'</div>'+
 								'</div>'+
 								//---------------------------------
-								'<div class="col-4" align="right">'+
-									'Video เนื้อหา :'+
-								'</div>'+
-								'<div class="col-8">'+
-									'<input type="text" class="form-control" id="lesson_videoContent_add_field">'+
-								'</div>'+
+								// '<div class="col-4" align="right">'+
+								// 	'Video เนื้อหา :'+
+								// '</div>'+
+								// '<div class="col-8">'+
+								// 	'<input type="text" class="form-control" id="lesson_videoContent_add_field">'+
+								// '</div>'+
 								//---------------------------------
 								'<div class="col-4" align="right">'+
 									'สร้างหน้าใหม่ :'+
@@ -419,12 +419,12 @@ function show_edit_modal(id){
 											'</div>'+
 										'</div>'+
 										//---------------------------------
-										'<div class="col-4" align="right">'+
-											'Video เนื้อหา :'+
-										'</div>'+
-										'<div class="col-8">'+
-											'<input type="text" class="form-control" id="lesson_videoContent_edit_field" value="'+data.lesson_content_mp4+'">'+
-										'</div>'+
+										// '<div class="col-4" align="right">'+
+										// 	'Video เนื้อหา :'+
+										// '</div>'+
+										// '<div class="col-8">'+
+										// 	'<input type="text" class="form-control" id="lesson_videoContent_edit_field" value="'+data.lesson_content_mp4+'">'+
+										// '</div>'+
 										//---------------------------------
 										'<div class="col-4" align="right">'+
 											'สร้างหน้าใหม่ :'+
@@ -619,7 +619,7 @@ function show_delete_modal(id){
 	$('#modal_delete_content').html(json_html);
 }
 
-function edit_lesson(id, edit_name, edit_desc, edit_videoIntro, edit_videoContent, edit_urlname, current_videoIntro){
+function edit_lesson(id, edit_name, edit_desc, edit_videoIntro, edit_urlname, current_videoIntro){
 	$('#update_btn').html('<i class="fas fa-spinner fa-spin"></i>&nbsp;Saving');
 	$.ajax({
 		url: '../system/cmd.php',
@@ -630,7 +630,7 @@ function edit_lesson(id, edit_name, edit_desc, edit_videoIntro, edit_videoConten
 			lesson_name_edit_field: edit_name,
 			lesson_desc_edit_field: edit_desc,
 			lesson_videoIntro_edit_field: edit_videoIntro,
-			lesson_videoContent_edit_field: edit_videoContent,
+			//lesson_videoContent_edit_field: edit_videoContent,
 			lesson_urlname_edit_field: edit_urlname,
 			current_videoIntro: current_videoIntro
 		}

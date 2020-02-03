@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var pageName = document.location.pathname.match(/[^\/]+$/)[0]
   pageName = pageName.replace('.html','');
+  $('#css_connect').attr('href','css/'+pageName+'.css');
   console.log(pageName);
   connectVideo(pageName);
 
