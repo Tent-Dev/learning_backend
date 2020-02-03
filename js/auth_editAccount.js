@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 	$("#sendEditAccount").submit(function(event){
 		event.preventDefault();
+		$('#save_edit').html('<i class="fas fa-spinner fa-spin"></i>&nbsp;Saving');
 		if($('#new_password').val() == $('#confirm_new_password').val()){
 			$.ajax({
 				url: '../system/cmd.php',
@@ -16,12 +17,25 @@ $( document ).ready(function() {
 			.done(function(data) {
 				data = JSON.parse(data);
 				console.log("success");
+				console.log("Status: "+data.status);
+				if(data.status == 1){
+					$('#sendEditAccount')[0].reset();
+					$('#editSuccess').html('<span style="color:green;">บันทึกเรียบร้อย</span>');
+				}
+				else if(data.status == 2) {
+					$('#editSuccess').html('<span style="color:red;">ยืนยันรหัสผ่านไม่ตรงกัน</span>');
+				}
+				else if(data.status == 3){
+					$('#editSuccess').html('<span style="color:red;">รหัสผ่านเก่าไม่ถูกต้อง</span>');
+				}
+				
 			})
 			.fail(function() {
 				console.log("error");
+				$('#editSuccess').html('<span style="color:red;">Error</span>');
 			})
 			.always(function() {
-				console.log("complete");
+				$('#save_edit').html('Save');
 			});
 		}	
 	});

@@ -106,10 +106,10 @@ if($_SESSION['getUsername'] == ""){
 				</div>
 				<div class="col-12 row">
 					<div class="col-12" align="center">
-						<button type="submit" class="btn btn-success" id="">Save</button>
+						<button type="submit" class="btn btn-success" id="save_edit">Save</button>
 						<!-- <button type="button" class="btn btn-primary" id="">Create Account</button> -->
 					</div>
-					<div class="col-12" align="center"><span id="loginSuccess"></span></div>
+					<div class="col-12" align="center"><span id="editSuccess"></span></div>
 				</div>
 			</form>
 		</div>

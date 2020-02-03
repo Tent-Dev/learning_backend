@@ -82,10 +82,23 @@ if ($cmd != "") {
 			);
 
 			$key = array("member_id");
-			$check = $mysql->Update_db($arr,$key,"tbl_lesson");
-		} else {
-		    echo 'Invalid password.';
+			$check = $mysql->Update_db($arr,$key,"tbl_member");
+
+			if($check){
+				$ok = 1;
+			}else{
+				$ok = 0;
+			}
 		}
+		else if($new_password !== $confirm_new_password) {
+		    $ok = 2;
+		}
+		else if(!password_verify($old_password, $current_password) && $new_password == $confirm_new_password){
+			$ok = 3;
+		}
+
+		$status = array('status' => $ok );
+		echo json_encode($status);
 	}
 
 	//query_lessonlist
